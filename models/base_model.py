@@ -1,5 +1,6 @@
 import uuid
 from datetime import datetime
+from engine import *
 from time import sleep
 
 class BaseModel:
@@ -16,21 +17,24 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now().isoformat()
             self.updated_at = datetime.now().isoformat()
+            storage.new(self)
+            
 
     def __str__(self):
         return f"[ {self.__class__.__name__} ] ({self.id}) {self.__dict__}"
     
     def save(self):
         self.updated_at = datetime.now().isoformat()
+        storage.save()
+        
 
     def to_dict(self):
         data = self.__dict__
         data["__class__"] = self.__class__.__name__
         return data
 
-my_model = BaseModel(id='58079290-50e6-41aa-80b3-4d94e7ed5d99', created_at='2025-03-07T01:05:24.178672', updated_at='2025-03-07T01:05:24.178672')
-my_model2 = BaseModel()
-
 #TESTING
-print(my_model.__dict__)
+my_model1 = BaseModel()
+my_model1.save()
+
 
