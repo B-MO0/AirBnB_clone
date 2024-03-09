@@ -33,4 +33,4 @@ class BaseModel:
         return data
 
 
-
+New_inst = BaseModel()

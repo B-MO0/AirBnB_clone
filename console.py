@@ -1,28 +1,80 @@
 import cmd
+import json
 from models.base_model import BaseModel
+from models.base_model import storage
+import models
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb)"
-    
+    inst_str = None
+
     def do_create(self, model):
+        """create new base model"""
         if model:
-            if model == 'Basemodel':
-                model = BaseModel()
-                model.save()
-                print(model.id)
+            if model == 'BaseModel':
+                New_inst = BaseModel()
+                New_inst.save()
+                print(New_inst.id)
             else:
                 print("** class doesn't exist **")   
         else:
             print("** class name missing **")
+
+    def do_show(self, args,):
+        if args:
+            try:
+                bm, myid = args.split("BaseModel", 1)
+                if myid:
+                    inst = f"BaseModel.{myid[1:]}"
+                    stk = storage.all()
+                    if inst in stk:
+                        for k, v in stk.items():
+                            if inst == k:
+                                print(v)
+                        
+                    else:
+                        print('** no instance found **')
+
+                else:
+                    print("** instance id missing **")
             
+            except ValueError:
+                pass
+                print("** class doesn't exist **")
+        else:
+            print("** class name missing **")
+        
+    def do_destroy(self, args,):
+        if args:
+            try:
+                bm, myid = args.split("BaseModel", 1)
+                if myid:
+                    inst = f"BaseModel.{myid[1:]}"
+                    stk = storage.all()
+                    if inst in stk:
+                        del models.storage._File_storage__objects[inst]
+                        models.storage.save()
+                    else:
+                        print('** no instance found **')
+
+                else:
+                    print("** instance id missing **")
+            
+            except ValueError:
+                pass
+                print("** class doesn't exist **")
+        else:
+            print("** class name missing **")
+
 
     def emptyline(self):
         pass
 
     def do_EOF(self, line):
         return True
-    """Quit command to exit the program"""
+    
     def do_quit(self, line):
+        """Quit command to exit the program"""
         return True
     
 if __name__ == '__main__':
