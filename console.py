@@ -6,7 +6,7 @@ import models
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb)"
-    
+
     def do_create(self, model):
         """create new base model"""
         if model:
@@ -64,6 +64,18 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
         else:
             print("** class name missing **")
+
+    def do_all(self, model):
+        """create new base model"""
+        if model:
+            if model == 'BaseModel':
+                l =[]
+                for key, value in models.storage.all().items():
+                    l.append(str(value))
+                print(l)    
+
+            else:
+                print("** class doesn't exist **")   
 
 
     def emptyline(self):
