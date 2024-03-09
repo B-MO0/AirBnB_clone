@@ -1,7 +1,6 @@
 import uuid
 from datetime import datetime
-from engine import *
-from time import sleep
+from models import storage
 
 class BaseModel:
 
@@ -33,8 +32,5 @@ class BaseModel:
         data["__class__"] = self.__class__.__name__
         return data
 
-#TESTING
-my_model1 = BaseModel()
-my_model1.save()
 
 
