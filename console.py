@@ -92,7 +92,5 @@ class HBNBCommand(cmd.Cmd):
         """Quit command to exit the program"""
         return True
     
-def main():
-    HBNBCommand().cmdloop() 
 if __name__ == '__main__':
-       main()
+    HBNBCommand().cmdloop()    
