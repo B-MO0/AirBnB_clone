@@ -20,6 +20,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
 
     def do_show(self, args,):
+        """Prints the string representation of an instance based on the class name and id"""
         if args:
             try:
                 bm, myid = args.split("BaseModel", 1)
@@ -44,6 +45,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         
     def do_destroy(self, args,):
+        """Deletes an instance based on the class name and id"""
         if args:
             try:
                 bm, myid = args.split("BaseModel", 1)
@@ -66,7 +68,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
 
     def do_all(self, model):
-        """create new base model"""
+        """Prints all string representation of all instances"""
         if model:
             if model == 'BaseModel':
                 l =[]
@@ -79,9 +81,11 @@ class HBNBCommand(cmd.Cmd):
 
 
     def emptyline(self):
+        """skips empty lines"""
         pass
 
     def do_EOF(self, line):
+        """command to exit the program"""
         return True
     
     def do_quit(self, line):
