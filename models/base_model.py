@@ -11,7 +11,7 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key != "__class__":
                     if key in ("created_at", "updated_at"):
-                        value = datetime.fromisoformat(value)
+                        value = datetime()
                 setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
