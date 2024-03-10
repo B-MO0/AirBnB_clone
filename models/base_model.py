@@ -4,7 +4,7 @@ from models import storage
 
 class BaseModel:
 
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
 
         if kwargs:
             for key, value in kwargs.items():
