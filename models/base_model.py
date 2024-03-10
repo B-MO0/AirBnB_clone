@@ -30,7 +30,7 @@ class BaseModel:
     def to_dict(self):
         data = {}
         for key in self.__dict__:
-            if key == "created_at" or "updated_at":
+            if key in ("created_at", "updated_at"):
                 value = self.__dict__[key].isoformat()
             else:
                 value = self.__dict__[key]
