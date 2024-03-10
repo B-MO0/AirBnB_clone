@@ -17,7 +17,7 @@ class FileStorage:
             dtosave = {}
             for key in FileStorage.__objects.keys():
                 dtosave[key] = FileStorage.__objects[key].to_dict()
-            json.dump(dtosave, f, indent=2)
+            json.dump(dtosave, f)
 
     def reload(self):
         try:
