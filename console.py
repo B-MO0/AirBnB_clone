@@ -79,6 +79,42 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** class doesn't exist **")
 
+    def do_update(self, args):
+        """updates an instance"""
+        if not args:
+            print("** class name missing **")
+            return
+        my_args = args.split()
+        if my_args[0] == "BaseModel":
+            pass
+        else:
+            print("** class doesn't exist **")
+            return
+        if len(my_args) < 2:
+            print("** instance id missing **")
+            return
+        if my_args[0] + '.' + my_args[1] in models.storage.all():
+            pass
+        else:
+            print('** no instance found **')
+            return
+        if len(my_args) < 3:
+            print('** attribute name missing **')
+            return
+        if len(my_args) < 4:
+            print('** value missing **')
+            return
+        for key, val in models.storage.all().items():
+            if my_args[0] + '.' + my_args[1] == key:
+                break
+        try:
+            atype = type(getattr(val, my_args[2]))
+            setattr(val, my_args[2], atype(my_args[3][1:-1]))
+        except:
+            setattr(val, my_args[2], my_args[3][1:-1])
+        val.save()
+
+
     def emptyline(self):
         """skips empty lines"""
         pass
