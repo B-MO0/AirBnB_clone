@@ -7,12 +7,14 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
 
-        if kwargs:
-            for key, value in kwargs.items():
+        if kwargs and len(kwargs):
+            for key in kwargs.items():
                 if key != "__class__":
-                    if key in ("created_at", "updated_at"):
-                        value = datetime()
-                setattr(self, key, value)
+                    if key == "created_at" or "updated_at":
+                        form = "%Y-%m-%dT%H:%M:%S.%f"
+                        setattr(self, key, datetime.strptime(kwargs, form))
+                    else:
+                        setattr(self, key, kwargs[key])
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
