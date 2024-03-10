@@ -114,7 +114,6 @@ class HBNBCommand(cmd.Cmd):
             setattr(val, my_args[2], my_args[3][1:-1])
         val.save()
 
-
     def emptyline(self):
         """skips empty lines"""
         pass
