@@ -42,46 +42,51 @@ class HBNBCommand(cmd.Cmd):
                 for k, v in stk.items():
                     if inst == k:
                         print(v)
-
             else:
                 print('** no instance found **')
-
         else:
             print("** class name missing **")
 
     def do_destroy(self, args,):
         """Deletes an instance based on the class name and id"""
         if args:
-            try:
-                bm, myid = args.split("BaseModel", 1)
-                if myid:
-                    inst = f"BaseModel.{myid[1:]}"
-                    stk = models.storage.all()
-                    if inst in stk:
-                        del models.storage._FileStorage__objects[inst]
-                        models.storage.save()
-                    else:
-                        print('** no instance found **')
-
-                else:
-                    print("** instance id missing **")
-
-            except ValueError:
-                pass
+            my_args = args.split()
+            for a, b in classes.items():
+                if my_args[0] == a:
+                    break
+            else:
                 print("** class doesn't exist **")
+                return
+            if len(my_args) < 2:
+                print("** instance id missing **")
+                return
+            inst = f"{a}.{my_args[1]}"
+            stk = models.storage.all()
+            if inst in stk:
+                del models.storage._FileStorage__objects[inst]
+                models.storage.save()
+            else:
+                print('** no instance found **')
         else:
             print("** class name missing **")
 
     def do_all(self, model):
         """Prints all string representation of all instances"""
         if model:
-            if model == 'BaseModel':
-                my_list = []
-                for key, value in models.storage.all().items():
-                    my_list.append(str(value))
-                print(my_list)
+            for k, v in classes.items():
+                if model == k:
+                    break
             else:
                 print("** class doesn't exist **")
+                return
+        lst = []
+        for a, b in models.storage.all().items():
+            if model:
+                if model == a.split('.')[0]:
+                    lst.append(str(b))
+            else:
+                lst.append(str(b))
+        print(lst)
 
     def do_update(self, args):
         """updates an instance"""
