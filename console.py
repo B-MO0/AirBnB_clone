@@ -2,6 +2,7 @@ import cmd
 import json
 import models
 from models.base_model import BaseModel
+from models.engine.file_storage import classes
 
 
 class HBNBCommand(cmd.Cmd):
@@ -11,10 +12,12 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, model):
         """create new base model"""
         if model:
-            if model == 'BaseModel':
-                New_inst = BaseModel()
-                New_inst.save()
-                print(New_inst.id)
+            for k, v in classes.items():    
+                if model == k:
+                    New_inst = v()
+                    New_inst.save()
+                    print(New_inst.id)
+                    break
             else:
                 print("** class doesn't exist **")
         else:
