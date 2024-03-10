@@ -4,7 +4,9 @@ from models.base_model import BaseModel
 from models.base_model import storage
 import models
 
+
 class HBNBCommand(cmd.Cmd):
+
     prompt = "(hbnb)"
 
     def do_create(self, model):
@@ -15,12 +17,12 @@ class HBNBCommand(cmd.Cmd):
                 New_inst.save()
                 print(New_inst.id)
             else:
-                print("** class doesn't exist **")   
+                print("** class doesn't exist **")
         else:
             print("** class name missing **")
 
     def do_show(self, args,):
-        """Prints the string representation of an instance based on the class name and id"""
+        """Prints the string form of instance"""
         if args:
             try:
                 bm, myid = args.split("BaseModel", 1)
@@ -31,19 +33,19 @@ class HBNBCommand(cmd.Cmd):
                         for k, v in stk.items():
                             if inst == k:
                                 print(v)
-                        
+
                     else:
                         print('** no instance found **')
 
                 else:
                     print("** instance id missing **")
-            
+
             except ValueError:
                 pass
                 print("** class doesn't exist **")
         else:
             print("** class name missing **")
-        
+
     def do_destroy(self, args,):
         """Deletes an instance based on the class name and id"""
         if args:
@@ -60,7 +62,7 @@ class HBNBCommand(cmd.Cmd):
 
                 else:
                     print("** instance id missing **")
-            
+
             except ValueError:
                 pass
                 print("** class doesn't exist **")
@@ -71,14 +73,12 @@ class HBNBCommand(cmd.Cmd):
         """Prints all string representation of all instances"""
         if model:
             if model == 'BaseModel':
-                l =[]
+                my_list = []
                 for key, value in models.storage.all().items():
-                    l.append(str(value))
-                print(l)    
-
+                    my_list.append(str(value))
+                print(my_list)
             else:
-                print("** class doesn't exist **")   
-
+                print("** class doesn't exist **")
 
     def emptyline(self):
         """skips empty lines"""
@@ -87,10 +87,12 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, line):
         """command to exit the program"""
         return True
-    
+
     def do_quit(self, line):
         """Quit command to exit the program"""
         return True
-    
+
+
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()    
+
+    HBNBCommand().cmdloop()

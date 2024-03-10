@@ -3,6 +3,7 @@ from datetime import datetime
 import models
 from models import storage
 
+
 class BaseModel:
 
     def __init__(self, *args, **kwargs):
@@ -18,20 +19,15 @@ class BaseModel:
             self.created_at = datetime.now().isoformat()
             self.updated_at = datetime.now().isoformat()
             storage.new(self)
-            
 
     def __str__(self):
         return f"[ {self.__class__.__name__} ] ({self.id}) {self.__dict__}"
-    
+
     def save(self):
         self.updated_at = datetime.now().isoformat()
         storage.save()
-        
 
     def to_dict(self):
         data = self.__dict__
         data["__class__"] = self.__class__.__name__
         return data
-
-
-New_inst = BaseModel()
