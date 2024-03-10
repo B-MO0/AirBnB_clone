@@ -1,8 +1,7 @@
 import cmd
 import json
-from models.base_model import BaseModel
-from models.base_model import storage
 import models
+from models.base_model import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
@@ -28,7 +27,7 @@ class HBNBCommand(cmd.Cmd):
                 bm, myid = args.split("BaseModel", 1)
                 if myid:
                     inst = f"BaseModel.{myid[1:]}"
-                    stk = storage.all()
+                    stk = models.storage.all()
                     if inst in stk:
                         for k, v in stk.items():
                             if inst == k:
@@ -53,9 +52,9 @@ class HBNBCommand(cmd.Cmd):
                 bm, myid = args.split("BaseModel", 1)
                 if myid:
                     inst = f"BaseModel.{myid[1:]}"
-                    stk = storage.all()
+                    stk = models.storage.all()
                     if inst in stk:
-                        del models.storage._File_storage__objects[inst]
+                        del models.storage._FileStorage__objects[inst]
                         models.storage.save()
                     else:
                         print('** no instance found **')
