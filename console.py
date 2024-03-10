@@ -6,7 +6,7 @@ from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
 
-    prompt = "(hbnb)"
+    prompt = "(hbnb) "
 
     def do_create(self, model):
         """create new base model"""
