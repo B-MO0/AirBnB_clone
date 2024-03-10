@@ -12,7 +12,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, model):
         """create new base model"""
         if model:
-            for k, v in classes.items():    
+            for k, v in classes.items():
                 if model == k:
                     New_inst = v()
                     New_inst.save()
@@ -26,25 +26,26 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, args,):
         """Prints the string form of instance"""
         if args:
-            try:
-                bm, myid = args.split("BaseModel", 1)
-                if myid:
-                    inst = f"BaseModel.{myid[1:]}"
-                    stk = models.storage.all()
-                    if inst in stk:
-                        for k, v in stk.items():
-                            if inst == k:
-                                print(v)
-
-                    else:
-                        print('** no instance found **')
-
-                else:
-                    print("** instance id missing **")
-
-            except ValueError:
-                pass
+            my_args = args.split()
+            for a, b in classes.items():
+                if my_args[0] == a:
+                    break
+            else:
                 print("** class doesn't exist **")
+                return
+            if len(my_args) < 2:
+                print("** instance id missing **")
+                return
+            inst = f"{a}.{my_args[1]}"
+            stk = models.storage.all()
+            if inst in stk:
+                for k, v in stk.items():
+                    if inst == k:
+                        print(v)
+
+            else:
+                print('** no instance found **')
+
         else:
             print("** class name missing **")
 
