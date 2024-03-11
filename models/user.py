@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """Module for User CLS  """
 
 from models.base_model import BaseModel

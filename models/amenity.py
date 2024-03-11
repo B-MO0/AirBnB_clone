@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """ Module for Amenity CLS  """
 
 from models.base_model import BaseModel
