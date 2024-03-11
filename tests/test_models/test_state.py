@@ -11,7 +11,9 @@ class TestState(unittest.TestCase):
 
     def test_name(self):
         """name is working"""
-        self.assertTrue(type(state.name) == str)
+        self.assertTrue(type(state.name) is str)
+
 
 if __name__ == '__main__':
+
     unittest.main()

@@ -11,15 +11,17 @@ class TestReview(unittest.TestCase):
 
     def test_place_id(self):
         """place_id is working"""
-        self.assertTrue(type(review.place_id) == str)
+        self.assertTrue(type(review.place_id) is str)
 
     def test_user_id(self):
         """user_id is working"""
-        self.assertTrue(type(review.user_id) == str)
+        self.assertTrue(type(review.user_id) is str)
 
     def test_text(self):
         """text is working"""
-        self.assertTrue(type(review.text) == str)
+        self.assertTrue(type(review.text) is str)
+
 
 if __name__ == '__main__':
+
     unittest.main()

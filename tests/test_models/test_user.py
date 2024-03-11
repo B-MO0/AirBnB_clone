@@ -12,19 +12,21 @@ class TestUser(unittest.TestCase):
 
     def test_email(self):
         """email test"""
-        self.assertTrue(type(usr.email) == str)
+        self.assertTrue(type(usr.email) is str)
 
     def test_password(self):
         """password test"""
-        self.assertTrue(type(usr.password) == str)
+        self.assertTrue(type(usr.password) is str)
 
     def test_first_name(self):
         """first_name test"""
-        self.assertTrue(type(usr.first_name) == str)
+        self.assertTrue(type(usr.first_name) is str)
 
     def test_last_name(self):
         """last_name test"""
-        self.assertTrue(type(usr.last_name) == str)
+        self.assertTrue(type(usr.last_name) is str)
+
 
 if __name__ == '__main__':
+
     unittest.main()
