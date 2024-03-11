@@ -120,7 +120,7 @@ class HBNBCommand(cmd.Cmd):
         try:
             atype = type(getattr(val, my_args[2]))
             setattr(val, my_args[2], atype(my_args[3][1:-1]))
-        except:
+        except AttributeError:
             setattr(val, my_args[2], my_args[3][1:-1])
         val.save()
 

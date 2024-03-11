@@ -2,7 +2,7 @@ from models.base_model import BaseModel
 
 
 class User(BaseModel):
-    """User sub class of Basemodel"""
+    """User subclass of Basemodel"""
     email = ""
     password = ""
     first_name = ""
