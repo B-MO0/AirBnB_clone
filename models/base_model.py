@@ -15,7 +15,7 @@ class BaseModel:
                 if key != "__class__":
                     if key == "created_at" or "updated_at":
                         setattr(self, key, datetime.
-                                strptime(kwargs, "%Y-%m-%dT%H:%M:%S.%f"))
+                                strptime(kwargs[key], "%Y-%m-%dT%H:%M:%S.%f"))
                     else:
                         setattr(self, key, kwargs[key])
         else:

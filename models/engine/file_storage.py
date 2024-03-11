@@ -32,13 +32,18 @@ class FileStorage:
         with open(self.__file_path, "w") as f:
             dtosave = {}
             for key in FileStorage.__objects.keys():
-                dtosave[key] = FileStorage.__objects[key].__str__()
+                dtosave[key] = FileStorage.__objects[key].to_dict()
             json.dump(dtosave, f, indent=2)
 
     def reload(self):
         """Deserialisation of json file"""
         try:
             with open(self.__file_path, "r") as f:
-                FileStorage.__objects = json.load(f)
-        except FileNotFoundError:
+                FileStorage.__objects = {}
+                data = json.load(f)
+                for k, v in data.items():
+                    for a, b in classes.items():
+                        if k.split(".")[0] == a:
+                            FileStorage.__objects[k] = b(**v)
+        except:
             pass
