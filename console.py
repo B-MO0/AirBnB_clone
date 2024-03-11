@@ -1,84 +1,130 @@
+#!/usr/bin/python3
+""" My console HBNB clone project """
+
 import cmd
-import json
-from models.base_model import BaseModel
-from models.base_model import storage
 import models
+from models.base_model import BaseModel
+from models.engine.file_storage import classes
+
 
 class HBNBCommand(cmd.Cmd):
-    prompt = "(hbnb)"
+    """Command interpreter for HBNB clone"""
+    prompt = "(hbnb) "
 
     def do_create(self, model):
         """create new base model"""
         if model:
-            if model == 'BaseModel':
-                New_inst = BaseModel()
-                New_inst.save()
-                print(New_inst.id)
+            for k, v in classes.items():
+                if model == k:
+                    New_inst = v()
+                    New_inst.save()
+                    print(New_inst.id)
+                    break
             else:
-                print("** class doesn't exist **")   
+                print("** class doesn't exist **")
         else:
             print("** class name missing **")
 
     def do_show(self, args,):
-        """Prints the string representation of an instance based on the class name and id"""
+        """Prints the string form of instance"""
         if args:
-            try:
-                bm, myid = args.split("BaseModel", 1)
-                if myid:
-                    inst = f"BaseModel.{myid[1:]}"
-                    stk = storage.all()
-                    if inst in stk:
-                        for k, v in stk.items():
-                            if inst == k:
-                                print(v)
-                        
-                    else:
-                        print('** no instance found **')
-
-                else:
-                    print("** instance id missing **")
-            
-            except ValueError:
-                pass
+            my_args = args.split()
+            for a, b in classes.items():
+                if my_args[0] == a:
+                    break
+            else:
                 print("** class doesn't exist **")
+                return
+            if len(my_args) < 2:
+                print("** instance id missing **")
+                return
+            inst = f"{a}.{my_args[1]}"
+            stk = models.storage.all()
+            if inst in stk:
+                for k, v in stk.items():
+                    if inst == k:
+                        print(v)
+            else:
+                print('** no instance found **')
         else:
             print("** class name missing **")
-        
+
     def do_destroy(self, args,):
         """Deletes an instance based on the class name and id"""
         if args:
-            try:
-                bm, myid = args.split("BaseModel", 1)
-                if myid:
-                    inst = f"BaseModel.{myid[1:]}"
-                    stk = storage.all()
-                    if inst in stk:
-                        del models.storage._File_storage__objects[inst]
-                        models.storage.save()
-                    else:
-                        print('** no instance found **')
-
-                else:
-                    print("** instance id missing **")
-            
-            except ValueError:
-                pass
+            my_args = args.split()
+            for a, b in classes.items():
+                if my_args[0] == a:
+                    break
+            else:
                 print("** class doesn't exist **")
+                return
+            if len(my_args) < 2:
+                print("** instance id missing **")
+                return
+            inst = f"{a}.{my_args[1]}"
+            stk = models.storage.all()
+            if inst in stk:
+                del models.storage._FileStorage__objects[inst]
+                models.storage.save()
+            else:
+                print('** no instance found **')
         else:
             print("** class name missing **")
 
     def do_all(self, model):
         """Prints all string representation of all instances"""
         if model:
-            if model == 'BaseModel':
-                l =[]
-                for key, value in models.storage.all().items():
-                    l.append(str(value))
-                print(l)    
-
+            for k, v in classes.items():
+                if model == k:
+                    break
             else:
-                print("** class doesn't exist **")   
+                print("** class doesn't exist **")
+                return
+        lst = []
+        for a, b in models.storage.all().items():
+            if model:
+                if model == a.split('.')[0]:
+                    lst.append(str(b))
+            else:
+                lst.append(str(b))
+        print(lst)
 
+    def do_update(self, args):
+        """updates an instance"""
+        if not args:
+            print("** class name missing **")
+            return
+        my_args = args.split()
+        for k, v in classes.items():
+            if my_args[0] == k:
+                break
+        else:
+            print("** class doesn't exist **")
+            return
+        if len(my_args) < 2:
+            print("** instance id missing **")
+            return
+        if my_args[0] + '.' + my_args[1] in models.storage.all():
+            pass
+        else:
+            print('** no instance found **')
+            return
+        if len(my_args) < 3:
+            print('** attribute name missing **')
+            return
+        if len(my_args) < 4:
+            print('** value missing **')
+            return
+        for key, val in models.storage.all().items():
+            if my_args[0] + '.' + my_args[1] == key:
+                break
+        try:
+            atype = type(getattr(val, my_args[2]))
+            setattr(val, my_args[2], atype(my_args[3][1:-1]))
+        except AttributeError:
+            setattr(val, my_args[2], my_args[3][1:-1])
+        val.save()
 
     def emptyline(self):
         """skips empty lines"""
@@ -87,10 +133,12 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, line):
         """command to exit the program"""
         return True
-    
+
     def do_quit(self, line):
         """Quit command to exit the program"""
         return True
-    
+
+
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()    
+
+    HBNBCommand().cmdloop()
