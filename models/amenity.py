@@ -1,3 +1,5 @@
+""" Module for Amenity CLS  """
+
 from models.base_model import BaseModel
 
 

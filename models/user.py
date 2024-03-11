@@ -1,3 +1,5 @@
+"""Module for User CLS  """
+
 from models.base_model import BaseModel
 
 

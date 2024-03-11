@@ -1,3 +1,5 @@
+"""Module for  City CLS"""
+
 from models.base_model import BaseModel
 
 

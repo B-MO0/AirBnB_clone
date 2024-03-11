@@ -1,3 +1,5 @@
+"""Module for  Place CLS"""
+
 from models.base_model import BaseModel
 
 
