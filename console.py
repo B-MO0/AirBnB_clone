@@ -1,4 +1,4 @@
-""" My console HBNB clone project"""
+""" My console HBNB clone project """
 
 import cmd
 import models
