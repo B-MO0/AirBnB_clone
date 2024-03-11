@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 """ Module for the BaseModel CLS """
 
 import uuid
