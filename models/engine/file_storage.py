@@ -32,7 +32,7 @@ class FileStorage:
         with open(self.__file_path, "w") as f:
             dtosave = {}
             for key in FileStorage.__objects.keys():
-                dtosave[key] = FileStorage.__objects[key].to_dict()
+                dtosave[key] = FileStorage.__objects[key].__str__()
             json.dump(dtosave, f, indent=2)
 
     def reload(self):
