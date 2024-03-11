@@ -38,12 +38,11 @@ class HBNBCommand(cmd.Cmd):
             if len(my_args) < 2:
                 print("** instance id missing **")
                 return
-            inst = f"{a}.{my_args[1]}"
             stk = models.storage.all()
-            if inst in stk:
-                for k, v in stk.items():
-                    if inst == k:
-                        print(v)
+            for k, v in stk.items():
+                if a + '.' + my_args[1] in stk:
+                    print(v)
+                    break
             else:
                 print('** no instance found **')
         else:
