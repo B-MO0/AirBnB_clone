@@ -9,14 +9,15 @@ class BaseModel:
     """ BaseModel Class """
     def __init__(self, *args, **kwargs):
         """atributes instantiation"""
+        obform = "%Y-%m-%dT%H:%M:%S.%f"
         if kwargs and len(kwargs):
-            for key in kwargs.items():
+            for key, value in kwargs.items():
                 if key != "__class__":
-                    if key == "created_at" or "updated_at":
+                    if key in ["created_at", "updated_at"]:
                         setattr(self, key, datetime.
-                                strptime(kwargs[key], "%Y-%m-%dT%H:%M:%S.%f"))
+                                strptime(value, obform))
                     else:
-                        setattr(self, key, kwargs[key])
+                        setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
