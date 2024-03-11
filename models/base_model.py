@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """ Module for the BaseModel CLS """
 
 import uuid
@@ -6,9 +7,9 @@ import models
 
 
 class BaseModel:
-
+    """ BaseModel Class """
     def __init__(self, *args, **kwargs):
-
+        """atributes instantiation"""
         if kwargs and len(kwargs):
             for key in kwargs.items():
                 if key != "__class__":
@@ -24,13 +25,16 @@ class BaseModel:
             models.storage.new(self)
 
     def __str__(self):
+        """string representation of instance"""
         return f"[ {self.__class__.__name__} ] ({self.id}) {self.__dict__}"
 
     def save(self):
+        """ updates when saved """
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
+        """creates a dictionary"""
         data = {}
         for key in self.__dict__:
             if key in ("created_at", "updated_at"):
