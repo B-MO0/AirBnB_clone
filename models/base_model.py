@@ -1,3 +1,5 @@
+""" Module for the BaseModel CLS """
+
 import uuid
 from datetime import datetime
 import models

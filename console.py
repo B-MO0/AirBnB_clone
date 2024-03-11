@@ -1,12 +1,14 @@
+#!/usr/bin/python3
+""" My console HBNB clone project"""
+
 import cmd
-import json
 import models
 from models.base_model import BaseModel
 from models.engine.file_storage import classes
 
 
 class HBNBCommand(cmd.Cmd):
-
+    """Command interpreter for HBNB clone"""
     prompt = "(hbnb) "
 
     def do_create(self, model):
