@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 """ My console HBNB clone project"""
 
 import cmd
