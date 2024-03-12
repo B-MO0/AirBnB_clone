@@ -41,7 +41,7 @@ class HBNBCommand(cmd.Cmd):
             stk = models.storage.all()
             for k, v in stk.items():
                 if a + '.' + my_args[1] in stk:
-                    print(v)
+                    print("OK")
                     break
             else:
                 print('** no instance found **')
