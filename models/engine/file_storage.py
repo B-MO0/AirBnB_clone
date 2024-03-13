@@ -11,21 +11,21 @@ from models.place import Place
 from models.review import Review
 
 
-classes = {'BaseModel': BaseModel, 'User': User, 'State': State, 'City': City,
-           'Amenity': Amenity, 'Place': Place, 'Review': Review}
+classes = {'BaseModel': BaseModel,
+           'User': User,
+           'State': State,
+           'City': City,
+            'Amenity': Amenity,
+           'Place': Place,
+           'Review': Review
+           }
 
 
 class FileStorage:
     """File storage Class"""
     __file_path = "file.json"
     __objects = dict()
-    classes = {'BaseModel': BaseModel,
-               'User': User,
-               'State': State,
-               'City': City,
-               'Amenity': Amenity,
-               'Place': Place,
-               'Review': Review}
+
 
     def all(self):
         """Returns Dictionary of objects"""
@@ -37,7 +37,7 @@ class FileStorage:
 
     def save(self):
         """Serialization of json file"""
-        with open(self.__file_path, "w") as f:
+        with open(FileStorage.__file_path, "w") as f:
             dtosave = {}
             for key in FileStorage.__objects.keys():
                 dtosave[key] = FileStorage.__objects[key].to_dict()
@@ -50,8 +50,8 @@ class FileStorage:
                 obj_dict = json.load(f)
                 for key, value in obj_dict.items():
                     class_name = key.split('.')[0]
-                    if class_name not in self.classes:
-                        self.classes[class_name] = eval(class_name)
-                    self.__objects[key] = self.classes[class_name](**value)
+                    if class_name not in classes:
+                        classes[class_name] = eval(class_name)
+                    self.__objects[key] = classes[class_name](**value)
         except FileNotFoundError:
             pass
