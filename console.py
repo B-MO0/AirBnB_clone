@@ -27,25 +27,29 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, args,):
         """Prints the string form of instance"""
-        if args:
-            my_args = args.split()
-            for a, b in classes.items():
-                if my_args[0] == a:
-                    break
-            else:
-                print("** class doesn't exist **")
-                return
-            if len(my_args) < 2:
-                print("** instance id missing **")
-                return
-            for k, v in models.storage.all().items():
-                if a + '.' + my_args[1] == k:
-                    print(v)
-                    return
-            else:
-                print('** no instance found **')
-        else:
+        if not args:
             print("** class name missing **")
+            return
+
+        my_args = args.split()
+        class_name = my_args[0]
+        if class_name not in classes:
+            print("** class doesn't exist **")
+            return
+
+        if len(my_args) < 2:
+            print("** instance id missing **")
+            return
+
+        instance_id = my_args[1]
+        key = "{}.{}".format(class_name, instance_id)
+        all_objects = models.storage.all()
+        if key not in all_objects:
+            print("** no instance found **")
+            return
+
+        instance = all_objects[key]
+        print(instance)
 
     def do_destroy(self, args,):
         """Deletes an instance based on the class name and id"""
