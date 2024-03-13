@@ -23,6 +23,7 @@ classes = {'BaseModel': BaseModel,
 
 class FileStorage:
     """File storage Class"""
+
     __file_path = "file.json"
     __objects = {}
 
@@ -41,17 +42,17 @@ class FileStorage:
             dtosave = {}
             for key in FileStorage.__objects.keys():
                 dtosave[key] = FileStorage.__objects[key].to_dict()
-            json.dump(dtosave, f)
+            json.dump(dtosave, f, indent=2)
 
     def reload(self):
         """Deserialisation of json file"""
         try:
-            with open(self.__file_path, "r") as f:
+            with open(FileStorage.__file_path) as f:
+                FileStorage.__objects = {}
                 obj_dict = json.load(f)
                 for key, value in obj_dict.items():
-                    class_name = key.split('.')[0]
-                    if class_name not in classes:
-                        classes[class_name] = eval(class_name)
-                    self.__objects[key] = classes[class_name](**value)
+                    for k, v in classes.items():
+                        if key.split('.')[0] == k:
+                            FileStorage.__objects[key] = v(**value)
         except FileNotFoundError:
             pass
