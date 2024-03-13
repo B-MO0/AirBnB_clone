@@ -40,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
                 return
             for k, v in models.storage.all().items():
                 if a + '.' + my_args[1] == k:
-                    print(v)
+                    print(str(v)
                     return
             else:
                 print('** no instance found **')

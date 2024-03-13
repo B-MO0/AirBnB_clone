@@ -24,7 +24,7 @@ classes = {'BaseModel': BaseModel,
 class FileStorage:
     """File storage Class"""
     __file_path = "file.json"
-    __objects = dict()
+    __objects = {}
 
 
     def all(self):

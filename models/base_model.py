@@ -38,7 +38,7 @@ class BaseModel:
         """creates a dictionary"""
         data = {}
         for key in self.__dict__:
-            if key in ["created_at", "updated_at"]:
+            if key == "created_at" or key == "updated_at":
                 value = self.__dict__[key].isoformat()
             else:
                 value = self.__dict__[key]
