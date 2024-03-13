@@ -40,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
                 return
             stk = models.storage.all()
             for k, v in stk.items():
-                if a + '.' + my_args[1] in stk:
+                if a + '.' + my_args[1] == k:
                     print(v)
                     break
             else:
