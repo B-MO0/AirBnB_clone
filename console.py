@@ -38,8 +38,7 @@ class HBNBCommand(cmd.Cmd):
             if len(my_args) < 2:
                 print("** instance id missing **")
                 return
-            stk = models.storage.all()
-            for k, v in stk.items():
+            for k, v in models.storage.all().items():
                 if a + '.' + my_args[1] == k:
                     print(v)
                     break
